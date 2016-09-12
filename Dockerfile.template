@@ -9,7 +9,7 @@ RUN apt-cache policy docker-engine
 RUN sudo apt-get -y update
 RUN sudo apt-get -y install docker-engine
 #RUN sudo chmod 755 /etc/init.d/docker
-#RUN sudo service docker start
+RUN sudo service docker start
 RUN sudo docker pull surajthegreat/iotivity_ubuntu_final
 
 #Install java on NUC
