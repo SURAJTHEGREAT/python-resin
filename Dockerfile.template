@@ -36,5 +36,5 @@ RUN echo "Installing maven....."
 RUN echo "starting docker....."
 CMD sh /usr/local/docker_run/iotivity.sh
 #CMD ["sudo docker pull docker pull surajthegreat/iotivity_ubuntu_final"]
-#CMD ["java", "-jar", "/usr/local/quarksjava/Sample_Edgent/target/Sample_Edgent-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/usr/local/quarksjava/Sample_Edgent/target/Sample_Edgent-0.0.1-SNAPSHOT.jar"]
 
