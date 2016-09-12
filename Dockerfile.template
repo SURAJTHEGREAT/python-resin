@@ -11,7 +11,7 @@ RUN sudo apt-get -y install docker-engine
 RUN mkdir /usr/local/docker_run
 
 ADD iotivity.sh /usr/local/docker_run
-#RUN chmod 777 /usr/local/docker_run/iotivity.sh
+RUN chmod 777 /usr/local/docker_run/iotivity.sh
 #RUN sh /usr/local/docker_run/iotivity.sh
 #RUN sudo chmod 755 /etc/init.d/docker
 #RUN sudo service docker start
@@ -32,6 +32,6 @@ RUN cd /usr/local/quarksjava/Sample_Edgent && mvn clean install
 RUN echo "Installing maven....."
 RUN echo "starting docker....."
 CMD sh /usr/local/docker_run/iotivity.sh
-CMD ["sudo docker pull docker pull surajthegreat/iotivity_ubuntu_final"]
+#CMD ["sudo docker pull docker pull surajthegreat/iotivity_ubuntu_final"]
 CMD ["java", "-jar", "/usr/local/quarksjava/Sample_Edgent/target/Sample_Edgent-0.0.1-SNAPSHOT.jar"]
 
