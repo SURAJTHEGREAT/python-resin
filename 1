@@ -1,8 +1,5 @@
 FROM resin/nuc-debian
-# Enable systemd
-ENV INITSYSTEM on
 #Install Docker on nuc
-
 RUN apt-get -y update && apt-get install -y apt-transport-https ca-certificates
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 RUN touch /etc/apt/sources.list.d/docker.list
@@ -11,30 +8,20 @@ RUN apt-get -y update
 RUN apt-cache policy docker-engine
 RUN sudo apt-get -y update
 RUN sudo apt-get -y install docker-engine
-RUN mkdir /usr/local/docker_run
-
-ADD iotivity.sh /usr/local/docker_run
-RUN chmod 777 /usr/local/docker_run/iotivity.sh
-#RUN sh /usr/local/docker_run/iotivity.sh
 #RUN sudo chmod 755 /etc/init.d/docker
 #RUN sudo service docker start
-#RUN sudo docker pull surajthegreat/iotivity_ubuntu_final
-#RUN cat /etc/init.d/docker
+RUN sudo docker pull surajthegreat/iotivity_ubuntu_final
+
 #Install java on NUC
-RUN apt-get clean
 RUN apt-get update && echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee /etc/apt/sources.list.d/webupd8team-java.list
 RUN echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main" | tee -a /etc/apt/sources.list.d/webupd8team-java.list
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886
 RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" | debconf-set-selections
-RUN apt-get clean
 RUN apt-get update && apt-get install oracle-java8-installer && apt-get install maven
 ADD settings.xml /usr/share/maven
 ADD . /usr/local/quarksjava/
 RUN sh /usr/local/quarksjava/maven_build_aws.sh
 RUN cd /usr/local/quarksjava/Sample_Edgent && mvn clean install
 RUN echo "Installing maven....."
-RUN echo "starting docker....."
-CMD sh /usr/local/docker_run/iotivity.sh
-#CMD ["sudo docker pull docker pull surajthegreat/iotivity_ubuntu_final"]
-#CMD ["java", "-jar", "/usr/local/quarksjava/Sample_Edgent/target/Sample_Edgent-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/usr/local/quarksjava/Sample_Edgent/target/Sample_Edgent-0.0.1-SNAPSHOT.jar"]
 
